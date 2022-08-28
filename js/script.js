@@ -45,11 +45,8 @@
         /* [DONE] remove contents of titleList */
         const titleList = document.querySelector(optTitleListSelector)
         titleList.innerHTML = '';
-
         /* [DONE] find all the articles and save them to variable: articles */
-        const articles = document.querySelectorAll(optArticleSelector)
-
-        let html = '';
+        const articles = document.querySelectorAll(optArticleSelector) let html = '';
 
         for (let article of articles) {
             /* [DONE] get the article id */
