@@ -1,9 +1,13 @@
+('use strict');
 {
+
     const templates = {
         articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
         articleAuthor: Handlebars.compile(document.querySelector('#template-article-author').innerHTML),
         articleTag: Handlebars.compile(document.querySelector('#template-article-tag').innerHTML),
-        tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML)
+        tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML),
+        authorListLink: Handlebars.compile(document.querySelector('#template-author-list-link').innerHTML
+        ),
     };
 
     const opts = {
@@ -25,6 +29,7 @@
         article: {
             tags: '.post-tags .list',
             author: '.post-author',
+            title: '.post-title',
         },
         listOf: {
             titles: '.titles',
@@ -63,10 +68,6 @@
         correctArticle.classList.add('active');
 
     };
-
-
-
-
 
     const generateTitleLinks = function (customSelector = '') {
         /* [DONE] remove contents of titleList */
@@ -274,17 +275,21 @@
 
             /* END LOOP: for every article: */
         }
-        const authorList = document.querySelector(select.listOf.authors);
-        /* [NEW] create variable for all links HTML code*/
-        let allAuthorsHTML = '';
-        /* [NEW] START LOOP: for each author in allAuthors */
+
+
+        /* [NEW] create variable for all links HTML code */
+        const allAuthorsData = { authors: [] };
+
+        /* [NEW] START LOOP: for each tag in allTags: */
         for (let author in allAuthors) {
-            /* [NEW] generate code of a link and it to allAuthorsHTML */
-            allAuthorsHTML += '<li><a href="#author-' + author + '"><span>' + author + ' (' + allAuthors[author] + ')</span></a></li> ';
-            /* [NEW] END LOOP: for each author in allAuthors */
+            allAuthorsData.authors.push({
+                author: author,
+                count: allAuthors[author],
+            });
         }
-        /* [NEW] add html from allAuthos to authorList */
-        authorList.innerHTML = allAuthorsHTML;
+
+        const authorList = document.querySelector(select.listOf.authors);
+        authorList.innerHTML = templates.authorsCloudLink(allAuthorsData);
     };
     generateAuthors();
 
@@ -337,7 +342,5 @@
             authorLinkList.addEventListener('click', authorClickHandler);
         }
     };
-
     addClickListenersToAuthors();
-
 }
