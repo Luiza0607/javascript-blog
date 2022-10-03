@@ -1,13 +1,10 @@
-('use strict');
 {
-
     const templates = {
         articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
         articleAuthor: Handlebars.compile(document.querySelector('#template-article-author').innerHTML),
         articleTag: Handlebars.compile(document.querySelector('#template-article-tag').innerHTML),
         tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML),
-        authorListLink: Handlebars.compile(document.querySelector('#template-author-list-link').innerHTML
-        ),
+        authorsCloudLink: Handlebars.compile(document.querySelector('#template-author-cloud-link').innerHTML)
     };
 
     const opts = {
@@ -29,7 +26,6 @@
         article: {
             tags: '.post-tags .list',
             author: '.post-author',
-            title: '.post-title',
         },
         listOf: {
             titles: '.titles',
@@ -68,6 +64,10 @@
         correctArticle.classList.add('active');
 
     };
+
+
+
+
 
     const generateTitleLinks = function (customSelector = '') {
         /* [DONE] remove contents of titleList */
@@ -342,5 +342,7 @@
             authorLinkList.addEventListener('click', authorClickHandler);
         }
     };
+
     addClickListenersToAuthors();
+
 }
